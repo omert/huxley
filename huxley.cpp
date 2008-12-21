@@ -432,9 +432,9 @@ runtest(const size_t nVert, const size_t nPart)
             size_t j = perms[iPerm][1];
             if (perms[iEigComb][1] > perms[iEigComb][0])  //symmetric
                 testVecs(iEigComb, iPerm) = 
-                    f(i) * g(j) + f(j) * g(i) + 
-                    2.0 / (nVert - 2.0) * 
-                    (f(i) * g(i) + f(j) * g(j));
+//                    (nVert - 2.0) * (f(i) * g(j) + f(j) * g(i)) + 
+//                    2.0           * (f(i) * g(i) + f(j) * g(j));
+                    g(i) + g(j);
             else  //anti-symmetric
                 testVecs(iEigComb, iPerm) = f(i) * g(j) - f(j) * g(i);
         }
