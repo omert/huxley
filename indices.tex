@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{graphicx}
+
+\begin{document}
+
+\begin{eqnarray*}
+  q_i^jf_j &=& \phi f_i\\
+  q_i^jg_j &=& \gamma g_i\\
+  f^ig_i &=& 0 \\
+\\
+  Q_{ij}^{kl} &=& 
+        q_j^l\delta_i^k + 
+        q_i^k\delta_j^l + 
+        q_i^k\delta_i^l\delta_j^k +
+        q_i^l\delta_i^k\delta_j^l\\
+\\
+  H_{ij} &=& f_ig_j - g_if_j
+\\
+  Q_{ij}^{kl}H_{kl} &=& 
+                \left(  q_j^l\delta_i^k + 
+                        q_i^k\delta_j^l + 
+                        q_i^k\delta_i^l\delta_j^k +
+                        q_i^l\delta_i^k\delta_j^l\right)
+        \cdot  \left(f_kg_l - g_kf_l\right)\\
+\\      
+  &=& q_j^lf_ig_l - q_j^lg_if_l + q_i^kf_kg_j - q_i^kg_kf_j + 
+      q_i^jf_jg_i - q_i^jg_jf_i + q_i^jf_ig_j - q_i^jg_if_j \\
+  &=& \gamma f_ig_j - \phi g_if_j + \phi f_ig_j - \gamma g_if_j + 
+      \phi f_ig_i - \gamma g_if_i + \gamma f_jg_j - \phi g_jf_j \\
+  &=& \left(\gamma + \phi\right)H_{ij}
+\end{eqnarray*}
+
+
+\end{document}
