@@ -146,10 +146,12 @@ constructLargeMatrix(const LaSymMatrix& small,
             size_t k = perms[ip2][0];
             size_t l = perms[ip2][1];
             Q(ip1, ip2) = 
-                q(j, l) * d(i, k) + 
-                q(i, k) * d(j, l) +
-                q(i, k) * d(i, l) * d(j, k) + 
-                q(i, l) * d(i, k) * d(j, l);
+                q(j, l) * d(i, k) 
+                + q(i, k) * d(j, l)
+                + q(i, k) * d(i, l) * d(j, k)
+                + q(i, l) * d(i, k) * d(j, l)
+                - q(j, l) * d(i, k) * d(k, l) 
+                - q(i, k) * d(j, l) * d(k, l);
         }
     cout << "Q:" << endl;
     printNice(cout, Q);
@@ -201,8 +203,16 @@ constructSmallMatrix(LaSymMatrix& rSmall)
 //                rSmall(i, j) = scale;
 //            rSmall(i, j) = 1.0 * rand() / RAND_MAX > 0.5 ? scale : 0.0;
 //            rSmall(i, j) = scale;
-            rSmall(i, j) = scale * rand() / RAND_MAX;
-            
+//            rSmall(i, j) = scale * rand() / RAND_MAX;
+
+            if ((i < nVert / 2 && j < nVert / 2) ||
+                (i >= nVert / 2 && j >= nVert / 2))
+            {
+                rSmall(i, j) = scale * rand() / RAND_MAX;
+            }
+            else if (j == nVert / 2 - 1 && i == nVert / 2)
+                rSmall(i, j) = scale / 1000.0 * rand() / RAND_MAX;
+    
             
     for (size_t i = 0; i < nVert; ++i)
         for (size_t j = 0; j < nVert; ++j)
@@ -433,12 +443,21 @@ runtest(const size_t nVert, const size_t nPart)
             if (perms[iEigComb][1] > perms[iEigComb][0])  //symmetric
                 testVecs(iEigComb, iPerm) = 
 //                    (nVert - 2.0) * (f(i) * g(j) + f(j) * g(i)) + 
-//                    2.0           * (f(i) * g(i) + f(j) * g(j));
-                    g(i) + g(j);
+//                    2.0           * (f(i) * g(i) + f(j) * g(j)); 
+                    pow(g(i) - g(j), 2) + 
+                    nVert * g(i) * g(j) 
+                    - 1.0 / (nVert - 1) +
+                    pow(f(i) - f(j), 2) + 
+                    nVert * f(i) * f(j) 
+                    - 1.0 / (nVert - 1);
             else  //anti-symmetric
                 testVecs(iEigComb, iPerm) = f(i) * g(j) - f(j) * g(i);
         }
     }
+
+    cout << endl << "test vecs" << endl;;
+    printNice(cout, testVecs);
+
 
     for (size_t i = 0;  i < nPerm; ++i){
         double invNorm = 0.0;
@@ -452,8 +471,6 @@ runtest(const size_t nVert, const size_t nPart)
             testVecs(i, j) *= invNorm;
     }
 
-    cout << endl << "test vecs" << endl;;
-    printNice(cout, testVecs);
 
 
     testVecs = testVecs * largeEigenVectors;
