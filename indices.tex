@@ -12,7 +12,9 @@
         q_j^l\delta_i^k + 
         q_i^k\delta_j^l + 
         q_i^k\delta_i^l\delta_j^k +
-        q_i^l\delta_i^k\delta_j^l\\
+        q_i^l\delta_i^k\delta_j^l - 
+        q_j^l\delta_i^k\delta^{kl} - 
+        q_i^k\delta_j^l\delta^{kl}\\
 \\
   A_{ij} &=& f_ig_j - g_if_j
 \\
@@ -20,49 +22,119 @@
                 \left(  q_j^l\delta_i^k + 
                         q_i^k\delta_j^l + 
                         q_i^k\delta_i^l\delta_j^k +
-                        q_i^l\delta_i^k\delta_j^l\right)
+                        q_i^l\delta_i^k\delta_j^l - 
+                        q_j^l\delta_i^k\delta^{kl} -    
+                        q_i^k\delta_j^l\delta^{kl}\right)
         \cdot  \left(f_kg_l - g_kf_l\right)\\
 \\      
   &=& q_j^l\delta_i^kf_kg_l - q_j^l\delta_i^kg_kf_l + 
       q_i^k\delta_j^lf_kg_l - q_i^k\delta_j^lg_kf_l \\
       && + q_i^k\delta_i^l\delta_j^kf_kg_l - q_i^k\delta_i^l\delta_j^kg_kf_l + 
       q_i^l\delta_i^k\delta_j^lf_kg_l - q_i^l\delta_i^k\delta_j^lg_kf_l \\
+      && - \left(q_j^l\delta_i^k + q_i^k\delta_j^l\right) \delta^{kl}
+      \left(f_kg_l - g_kf_l\right)\\
   &=& q_j^lf_ig_l - q_j^lg_if_l + q_i^kf_kg_j - q_i^kg_kf_j \\
       && + q_i^jf_jg_i - q_i^jf_ig_j + q_i^jf_ig_j - q_i^jf_jg_i \\
   &=& \gamma f_ig_j - \phi g_if_j + \phi f_ig_j - \gamma g_if_j \\
   &=& \gamma (f_ig_j - g_if_j) + \phi (f_ig_j - g_if_j) \\ 
   &=& \left(\gamma + \phi\right)A_{ij}
 \\
-  S_{ij} &=& f_ig_j + g_if_j + {2 \over n - 2}(f_ig_i + f_jg_j)
+  S_{ij}^{(1)} &=& f_i + f_j
 \\
-  Q_{ij}^{kl}S_{kl} &=& 
+  Q_{ij}^{kl}S_{kl}^{(1)} &=& 
                 \left(  q_j^l\delta_i^k + 
                         q_i^k\delta_j^l + 
                         q_i^k\delta_i^l\delta_j^k +
-                        q_i^l\delta_i^k\delta_j^l\right)
-        \cdot  \left(f_kg_l + g_kf_l + {2 \over n - 2}(f_kg_k + f_lg_l)\right)\\
-\\      
-  &=& q_j^l\delta_i^kf_kg_l + q_j^l\delta_i^kg_kf_l + 
-      q_i^k\delta_j^lf_kg_l + q_i^k\delta_j^lg_kf_l \\
-      && + q_i^k\delta_i^l\delta_j^kf_kg_l + q_i^k\delta_i^l\delta_j^kg_kf_l + 
-      q_i^l\delta_i^k\delta_j^lf_kg_l + q_i^l\delta_i^k\delta_j^lg_kf_l \\
-      && + {2 \over n - 2}
-      (
-        q_j^l\delta_i^kf_kg_k + q_j^l\delta_i^kg_lf_l + 
-        q_i^k\delta_j^lf_kg_k + q_i^k\delta_j^lg_lf_l \\
-        && + q_i^k\delta_i^l\delta_j^kf_kg_k + q_i^k\delta_i^l\delta_j^kg_lf_l + 
-        q_i^l\delta_i^k\delta_j^lf_kg_k + q_i^l\delta_i^k\delta_j^lg_lf_l +
-      )\\
-  &=& q_j^lf_ig_l + q_j^lg_if_l + q_i^kf_kg_j + q_i^kg_kf_j \\
-      && + q_i^jf_jg_i + q_i^jg_jf_i + 
-      q_i^jf_ig_j + q_i^jg_if_j \\
-      && + {2 \over n - 2}
-      (
-        q_j^l\delta_i^kf_kg_k + q_j^l\delta_i^kg_lf_l + 
-        q_i^k\delta_j^lf_kg_k + q_i^k\delta_j^lg_lf_l \\
-        && + q_i^k\delta_i^l\delta_j^kf_kg_k + q_i^k\delta_i^l\delta_j^kg_lf_l + 
-        q_i^l\delta_i^k\delta_j^lf_kg_k + q_i^l\delta_i^k\delta_j^lg_lf_l +
-      )\\
+                        q_i^l\delta_i^k\delta_j^l - 
+                        q_j^l\delta_i^k\delta^{kl} -    
+                        q_i^k\delta_j^l\delta^{kl}\right)
+        \cdot  \left(f_k + f_l\right)\\
+  &=& q_j^l\delta_i^kf_k + q_j^l\delta_i^kf_l + 
+      q_i^k\delta_j^lf_k + q_i^k\delta_j^lf_l + 
+      q_i^k\delta_i^l\delta_j^kf_k + q_i^k\delta_i^l\delta_j^kf_l +     
+      q_i^l\delta_i^k\delta_j^lf_k + q_i^l\delta_i^k\delta_j^lf_l \\
+      && - q_j^l\delta_i^k\delta^{kl}f_k - q_j^l\delta_i^k\delta^{kl}f_l    
+      - q_i^k\delta_j^l\delta^{kl}f_k - q_i^k\delta_j^l\delta^{kl}f_l\\
+  &=& \phi f_j + \phi f_i + 
+      q_i^jf_j + q_i^jf_i +     
+      q_i^jf_i + q_i^jf_j 
+      - q_j^if_i - q_j^if_i - q_i^jf_j - q_i^jf_j\\
+  &=& \phi (f_i + f_j)
+\\
+  S_{ij}^{(2)} &=& (n - 2)(f_ig_j + g_if_j) + 2(f_ig_i + f_jg_j)
+\\
+  Q_{ij}^{kl}S_{kl}^{(2)} &=& 
+                \left(  q_j^l\delta_i^k + 
+                        q_i^k\delta_j^l + 
+                        q_i^k\delta_i^l\delta_j^k +
+                        q_i^l\delta_i^k\delta_j^l -
+                        q_j^l\delta_i^k\delta^{kl} -    
+                        q_i^k\delta_j^l\delta^{kl}\right)
+        \cdot  \left((n-2)(f_kg_l + g_kf_l) + 2(f_kg_k + f_lg_l)\right)\\
+&=& (n-2)(q_j^l\delta_i^kf_kg_l + 
+          q_i^k\delta_j^lf_kg_l + 
+          q_i^k\delta_i^l\delta_j^kf_kg_l +
+          q_i^l\delta_i^k\delta_j^lf_kg_l -
+          q_j^l\delta_i^k\delta^{kl}f_kg_l -    
+          q_i^k\delta_j^l\delta^{kl}f_kg_l)+\\
+&&  (n-2)(q_j^l\delta_i^kg_kf_l + 
+          q_i^k\delta_j^lg_kf_l + 
+          q_i^k\delta_i^l\delta_j^kg_kf_l +
+          q_i^l\delta_i^k\delta_j^lg_kf_l -
+          q_j^l\delta_i^k\delta^{kl}g_kf_l -    
+          q_i^k\delta_j^l\delta^{kl}g_kf_l) +\\
+&&       2(q_j^l\delta_i^kf_kg_k + 
+          q_i^k\delta_j^lf_kg_k + 
+          q_i^k\delta_i^l\delta_j^kf_kg_k +
+          q_i^l\delta_i^k\delta_j^lf_kg_k -
+          q_j^l\delta_i^k\delta^{kl}f_kg_k -    
+          q_i^k\delta_j^l\delta^{kl}f_kg_k)+\\
+&&       2(q_j^l\delta_i^kg_lf_l + 
+          q_i^k\delta_j^lg_lf_l + 
+          q_i^k\delta_i^l\delta_j^kg_lf_l +
+          q_i^l\delta_i^k\delta_j^lg_lf_l -
+          q_j^l\delta_i^k\delta^{kl}g_lf_l -    
+          q_i^k\delta_j^l\delta^{kl}g_lf_l)\\
+&=& (n-2)(q_j^lf_ig_l + 
+          q_i^kf_kg_j + 
+          q_i^jf_jg_i +
+          q_i^jf_ig_j -
+          q_j^if_ig_i -    
+          q_i^jf_jg_j)+\\
+&&  (n-2)(q_j^lg_if_l + 
+          q_i^kg_kf_j + 
+          q_i^jg_jf_i +
+          q_i^jg_if_j -
+          q_j^ig_if_i -    
+          q_i^jg_jf_j) +\\
+&&      2(q_j^lf_ig_i + 
+          q_i^kf_kg_k + 
+          q_i^jf_jg_j +
+          q_i^jf_ig_i -
+          q_j^lf_ig_i -    
+          q_i^jf_jg_j)+\\
+&&      2(q_j^lg_lf_l + 
+          q_i^kg_jf_j + 
+          q_i^jg_if_i +
+          q_i^jg_jf_j -
+          q_j^ig_if_i -    
+          q_i^jg_jf_j)\\
+&=& (n-2)(\gamma f_ig_j + 
+          \phi   f_ig_j + 
+          q_i^jf_jg_i +
+          q_i^jf_ig_j -
+          q_i^jf_ig_i -    
+          q_i^jf_jg_j)+\\
+&&  (n-2)(\phi f_jg_i + 
+          \gamma f_jg_i + 
+          q_i^jf_ig_j +
+          q_i^jf_jg_i -
+          q_i^jf_ig_i -    
+          q_i^jf_jg_j) +\\
+&&      2\left(q_i^kf_kg_k + q_j^lg_lf_l\right)\\
+&=&     (n-2)\left((\gamma + \phi)(f_ig_j + f_jg_i) + 
+              2q_i^j(f_ig_j + f_jg_i - f_ig_i - f_jg_j)\right) +
+        2(q_i^k+q_j^k)f_kg_k\\
 \end{eqnarray*}
 
 
