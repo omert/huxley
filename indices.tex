@@ -1,8 +1,11 @@
+
 \documentclass{article}
 \usepackage{graphicx}
 
 \begin{document}
 
+$q$ is the matrix of the one particle process. $Q$ is the matrix of the 
+two particle process. $f$ and $g$ are eigenvectors of $q$. 
 \begin{eqnarray*}
   q_i^jf_j &=& \phi f_i\\
   q_i^jg_j &=& \gamma g_i\\
@@ -15,7 +18,10 @@
         q_i^l\delta_i^k\delta_j^l - 
         q_j^l\delta_i^k\delta^{kl} - 
         q_i^k\delta_j^l\delta^{kl}\\
-\\
+\end{eqnarray*}
+$A$ is an anti-symmetrix eigenfunction of $Q$.
+
+\begin{eqnarray*}
   A_{ij} &=& f_ig_j - g_if_j
 \\
   Q_{ij}^{kl}A_{kl} &=& 
@@ -38,7 +44,9 @@
   &=& \gamma f_ig_j - \phi g_if_j + \phi f_ig_j - \gamma g_if_j \\
   &=& \gamma (f_ig_j - g_if_j) + \phi (f_ig_j - g_if_j) \\ 
   &=& \left(\gamma + \phi\right)A_{ij}
-\\
+\end{eqnarray*}
+$S^{(1)}$ is a symmetric eigenvector of $Q$.
+\begin{eqnarray*}
   S_{ij}^{(1)} &=& f_i + f_j
 \\
   Q_{ij}^{kl}S_{kl}^{(1)} &=& 
@@ -60,7 +68,10 @@
       q_i^jf_i + q_i^jf_j 
       - q_j^if_i - q_j^if_i - q_i^jf_j - q_i^jf_j\\
   &=& \phi (f_i + f_j)
-\\
+\end{eqnarray*}
+$S^{(2)}$ is {\bf not} a symmetric eigenvector of $Q$.
+
+\begin{eqnarray*}
   S_{ij}^{(2)} &=& (n - 2)(f_ig_j + g_if_j) + 2(f_ig_i + f_jg_j)
 \\
   Q_{ij}^{kl}S_{kl}^{(2)} &=& 
@@ -135,7 +146,52 @@
 &=&     (n-2)\left((\gamma + \phi)(f_ig_j + f_jg_i) + 
               2q_i^j(f_ig_j + f_jg_i - f_ig_i - f_jg_j)\right) +
         2(q_i^k+q_j^k)f_kg_k\\
+&=&     (\gamma + \phi)(n-2)(f_ig_j + f_jg_i) + 
+              2(n-2)q_i^j(f_ig_j + f_jg_i - f_ig_i - f_jg_j) +
+        2(q_i^k+q_j^k)f_kg_k\\
+&=&     (\gamma + \phi)S_{ij}^{(2)} - (\gamma + \phi)2(f_ig_i + f_jg_j) + 
+              2(n-2)q_i^j(f_ig_j + f_jg_i - f_ig_i - f_jg_j) +
+        2(q_i^k+q_j^k)f_kg_k\\
 \end{eqnarray*}
 
-
+$P$ is a symmetric eigenvector of $Q$, orthogonal to all $S^{(1)}$'s 
+($S=S^{(1)}$).
+\begin{eqnarray*}
+  P_{ij}=P_{ij}\\
+  P_{ii}=0\\
+  0&=&P_{ij}S^{kl}\\
+  0&=&P_{ij}(f^i+f^j)\\
+  0&=&P_{ij}f^i1^j+P_{ij}f^j1^i\\
+  0&=&P_{ij}f^j1^i\\
+\end{eqnarray*}
+because the $f$'s are a complete basis:
+\begin{eqnarray*}
+  \sum_iP_{ij}=\sum_jP_{ij}=0\\  
+\end{eqnarray*}
+\begin{eqnarray*}
+  Q_{ij}^{kl}P_{kl} &=& 
+        \left(
+        q_j^l\delta_i^k + 
+        q_i^k\delta_j^l + 
+        q_i^k\delta_i^l\delta_j^k +
+        q_i^l\delta_i^k\delta_j^l
+        \right)P_{kl}\\
+        &=&
+        q_j^l\delta_i^kP_{kl} + 
+        q_i^k\delta_j^lP_{kl} + 
+        q_i^k\delta_i^l\delta_j^kP_{kl} +
+        q_i^l\delta_i^k\delta_j^lP_{kl}\\
+        &=& 
+        q_j^kP_{ik} + 
+        q_i^kP_{jk} + 
+        2q_i^jP_{ij}\\ 
+\end{eqnarray*}
+$P$ is an eigenvector of $Q$.
+\begin{eqnarray*}
+        q_j^kP_{ik} + 
+        q_i^kP_{jk} + 
+        2q_i^jP_{ij}
+        &=&
+        \lambda P_{ij}\\
+\end{eqnarray*}
 \end{document}

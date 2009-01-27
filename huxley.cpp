@@ -149,9 +149,7 @@ constructLargeMatrix(const LaSymMatrix& small,
                 q(j, l) * d(i, k) 
                 + q(i, k) * d(j, l)
                 + q(i, k) * d(i, l) * d(j, k)
-                + q(i, l) * d(i, k) * d(j, l)
-                - q(j, l) * d(i, k) * d(k, l) 
-                - q(i, k) * d(j, l) * d(k, l);
+                + q(i, l) * d(i, k) * d(j, l);
         }
     cout << "Q:" << endl;
     printNice(cout, Q);
@@ -203,8 +201,9 @@ constructSmallMatrix(LaSymMatrix& rSmall)
 //                rSmall(i, j) = scale;
 //            rSmall(i, j) = 1.0 * rand() / RAND_MAX > 0.5 ? scale : 0.0;
 //            rSmall(i, j) = scale;
-//            rSmall(i, j) = scale * rand() / RAND_MAX;
+            rSmall(i, j) = scale * rand() / RAND_MAX;
 
+/* one small eigenvalue
             if ((i < nVert / 2 && j < nVert / 2) ||
                 (i >= nVert / 2 && j >= nVert / 2))
             {
@@ -212,12 +211,33 @@ constructSmallMatrix(LaSymMatrix& rSmall)
             }
             else if (j == nVert / 2 - 1 && i == nVert / 2)
                 rSmall(i, j) = scale / 1000.0 * rand() / RAND_MAX;
-    
+*/
             
-    for (size_t i = 0; i < nVert; ++i)
+    for (size_t i = 0; i < nVert; ++i){
+        rSmall(i, i) = 0.0;
         for (size_t j = 0; j < nVert; ++j)
             if (i != j)
                 rSmall(i, i) -= rSmall(i, j);
+    }
+
+/*
+    LaVector smallEigs(nVert);
+    LaMatrix smallEigenVectors = rSmall;
+    LaEigSolve(rSmall, smallEigs, smallEigenVectors);
+
+    LaMatrix newEigs = LaMatrix::zeros(nVert, nVert);
+    for (size_t i = 0; i < nVert; ++i)
+        newEigs(i, i) = -pow(10.0, -1.0 * i);
+    newEigs(nVert - 1, nVert - 1) = 0.0;
+    
+    LaMatrix temp1(nVert, nVert);
+    LaMatrix temp2(nVert, nVert);
+    Blas_Mat_Mat_Mult(smallEigenVectors, newEigs, temp1, false);
+    Blas_Mat_Mat_Mult(temp1, smallEigenVectors, temp2, false, true);
+    for (size_t i = 0; i < nVert; ++i)
+        for (size_t j = 0; j < nVert; ++j)
+            rSmall(i, j) = temp2(i, j);
+*/
 } 
 
 void
@@ -442,14 +462,10 @@ runtest(const size_t nVert, const size_t nPart)
             size_t j = perms[iPerm][1];
             if (perms[iEigComb][1] > perms[iEigComb][0])  //symmetric
                 testVecs(iEigComb, iPerm) = 
-//                    (nVert - 2.0) * (f(i) * g(j) + f(j) * g(i)) + 
-//                    2.0           * (f(i) * g(i) + f(j) * g(j)); 
-                    pow(g(i) - g(j), 2) + 
-                    nVert * g(i) * g(j) 
-                    - 1.0 / (nVert - 1) +
-                    pow(f(i) - f(j), 2) + 
-                    nVert * f(i) * f(j) 
-                    - 1.0 / (nVert - 1);
+                    (nVert - 2.0) * (f(i) * g(j) + f(j) * g(i)) + 
+                    2.0           * (f(i) * g(i) + f(j) * g(j));
+//                    (f(i) * g(j) + f(j) * g(i)); 
+//                    pow(f(i) * f(j) - g(j) * g(i), 2);
             else  //anti-symmetric
                 testVecs(iEigComb, iPerm) = f(i) * g(j) - f(j) * g(i);
         }
@@ -480,7 +496,7 @@ runtest(const size_t nVert, const size_t nPart)
             if (fabs(testVecs(i, j)) < 1e-4)
                 testVecs(i, j) = 0.0;
 
-    cout << endl << "test vecs" << endl;;
+    cout << endl << "test vecs projected on eigenvecs:" << endl;;
     printNice(cout, testVecs);
     
 
